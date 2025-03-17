@@ -46,7 +46,7 @@ Maven will handle downloading these dependencies automatically when building the
 
 Here’s an example screenshot of the output in the terminal when you run the application:
 
-![Blockchain Output Screenshot](images/img.png)
+![Blockchain Output Screenshot](src/images/img.png)
 
 ## Conclusion
 
