@@ -10,21 +10,27 @@ import java.util.List;
 
 public class Block {
     private long index;
-    private String data;
+    //private String data;
+    private List<Transaction> transactions;
     private Timestamp timestamp;
     private String currentHash;
     private String previousHash;
 
-    public Block(long index, String data, String previousHash) {
+    public Block(long index, List<Transaction> transactions, String previousHash) {
         this.index = index;
-        this.data = data;
+        //this.data = data;
+        this.transactions = transactions;
         this.timestamp = new Timestamp(System.currentTimeMillis());
         this.currentHash = calculateHash();
         this.previousHash = previousHash;
     }
 
     private String calculateHash(){
-        String calculatedHash = DigestUtils.sha256(index+data+timestamp.toString()+previousHash).toString();
+        String data = "";
+        for (Transaction transaction: transactions){
+            data += transaction.toString();
+        }
+        String calculatedHash = DigestUtils.sha256Hex(index+data+timestamp.toString()+previousHash).toString();
         return calculatedHash;
     }
 
@@ -32,7 +38,6 @@ public class Block {
     public String toString() {
         return "Block{" +
                 "index=" + index +
-                ", data='" + data + '\'' +
                 ", timestamp=" + timestamp +
                 ", currentHash='" + currentHash + '\'' +
                 ", previousHash='" + previousHash + '\'' +
